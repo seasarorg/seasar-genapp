@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project
+	xmlns:j="jelly:core"
+	xmlns:ant="jelly:ant"
+>
+
+	<!--
+	<goal
+		name="seasar"
+		description="Alias to seasar:genapp"
+		prereqs="seasar:genapp"
+	/>
+	-->
+
+	<goal
+		name="seasar:genapp"
+		description="Generate Seasar Project Template"
+	>
+		<j:if test="${maven.genapp.seasar.debug}">
+			<ant:echo>${plugin} - start</ant:echo>
+		</j:if>
+
+		<j:set var="templateRepository" value="${plugin.resources}"/>
+		<j:set var="defaultTemplate" value="${maven.genapp.seasar.default.template}"/>
+		<j:set var="dummy">
+			${context.setVariable('maven.genapp.template.repository', 'parent', templateRepository)}
+			${context.setVariable('maven.genapp.default.template', 'parent', defaultTemplate)}
+		</j:set>
+
+		<j:if test="${maven.genapp.seasar.debug}">
+			<ant:echo>maven.genapp.template.repository = ${maven.genapp.template.repository}</ant:echo>
+			<ant:echo>maven.genapp.default.template = ${maven.genapp.default.template}</ant:echo>
+		</j:if>
+
+		<attainGoal name="genapp"/>
+
+		<j:if test="${maven.genapp.seasar.debug}">
+			<ant:echo>${plugin} - end</ant:echo>
+		</j:if>
+	</goal>
+
+</project>
