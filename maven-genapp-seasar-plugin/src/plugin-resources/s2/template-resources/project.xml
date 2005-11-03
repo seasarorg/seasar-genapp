@@ -18,29 +18,14 @@
  -->
 <project>
     <pomVersion>3</pomVersion>
-    <id>@ID@</id>
+    <groupId>@ID@</groupId>
     <artifactId>@ID@</artifactId>
     <name>@NAME@</name>
-    <groupId>s2</groupId>
-    <currentVersion>SNAPSHOT</currentVersion>
-    <package>@PACKAGE@</package>
-    <organization>
-        <name>Seasar Project</name>
-        <url>http://www.seasar.org/</url>
-        <logo>/images/logo.gif</logo>
-    </organization>
-    <licenses>
-        <license>
-            <name>The Seasar Software License, Version 1.1</name>
-            <url>http://homepage3.nifty.com/seasar/SEASAR-LICENSE.TXT</url>
-        </license>
-    </licenses>
-    <inceptionYear>2005</inceptionYear>
-    <logo>/images/logo.gif</logo>
+    <currentVersion>0.1-SNAPSHOT</currentVersion>
     <shortDescription>Seasar2 Application</shortDescription>
-    <repository/>
-    <mailingLists/>
-
+    <description>Seasar2 Application</description>
+    <inceptionYear>2005</inceptionYear>
+    <package>@PACKAGE@</package>
     <dependencies>
         <dependency>
             <groupId>aopalliance</groupId>
@@ -70,11 +55,12 @@
             </properties>
         </dependency>
         <dependency>
-            <groupId>j2ee</groupId>
-            <artifactId>jta</artifactId>
-            <jar>jta.jar</jar>
+            <groupId>geronimo-spec</groupId>
+            <artifactId>geronimo-spec-jta</artifactId>
+            <version>1.0.1B-rc4</version>
+            <type>jar</type>
             <properties>
-                <war.bundle>true</war.bundle>
+                <war.bundle>false</war.bundle>
             </properties>
         </dependency>
         <dependency>
@@ -137,17 +123,21 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src/java</sourceDirectory>
-        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <unitTestSourceDirectory>${basedir}/src/test/java</unitTestSourceDirectory>
         <unitTest>
             <includes>
                 <include>**/*Test.java</include>
             </includes>
+            <excludes>
+                <exclude>**/NaughtyTest.java</exclude>
+            </excludes>
             <resources>
                 <resource>
-                    <directory>${basedir}/src/test/</directory>
+                    <directory>${basedir}/src/test/resources</directory>
                     <includes>
                         <include>**/*.dicon</include>
+                        <include>**/*.properties</include>
                     </includes>
                     <filtering>false</filtering>
                 </resource>
@@ -155,9 +145,10 @@
         </unitTest>
         <resources>
             <resource>
-                <directory>src/conf</directory>
+                <directory>${basedir}/src/main/resources</directory>
                 <includes>
                     <include>**/*.dicon</include>
+                    <include>**/*.properties</include>
                 </includes>
                 <filtering>false</filtering>
             </resource>
